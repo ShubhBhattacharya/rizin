@@ -18,6 +18,7 @@ hash_plugins_list = [
   'murmur3_x86_32',
   'murmur3_x86_128',
   'murmur3_x64_128',
+  'fnv1a_32',
   'sm3',
   'blake2b',
   'blake2bp',
@@ -30,7 +31,6 @@ hash_plugins_list = [
   'fletcher16',
   'fletcher32',
   'fletcher64',
-  'fnv1a',
   'adler32',
   'mod255',
   'crca_crc8smbus',
@@ -112,7 +112,7 @@ rz_hash_sources = [
   'p/algo_crca.c',
   'p/algo_adler32.c',
   'p/algo_fletcher.c',
-  'p/algo_fnv1a.c',
+  'p/algo_fnv1a_32.c',
   'p/algo_blake2b.c',
   'p/algo_blake2bp.c',
   'p/algo_blake2xb.c',
@@ -172,6 +172,7 @@ rz_hash_sources = [
   'algorithms/sha3/sha3.c',
   'algorithms/shake/shake.c',
   'algorithms/murmur3/murmur3.c',
+  'algorithms/fnv/fnv.c',
 ]
 
 dependencies = [mth, rz_util_dep, xxhash_dep, blake3_dep, blake2_dep]
@@ -210,7 +211,7 @@ rz_hash_dep = declare_dependency(link_with: rz_hash,
 meson.override_dependency('rz_hash', rz_hash_dep)
 
 modules += { 'rz_hash': {
-    'target': rz_hash,
-    'dependencies': ['rz_util'],
-    'plugins': [hash_plugins]
+  'target': rz_hash,
+  'dependencies': ['rz_util'],
+  'plugins': [hash_plugins]
 }}
